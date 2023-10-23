@@ -26,9 +26,9 @@ const Home = () => {
   };
 
   return (
-    <main className="px-1">
-      <section>
-        <div className="mb-48">
+    <main className="p-1">
+      <section className="">
+        <div className="mb-28">
           <div className="relative flex justify-center mt-10 mb-16 ">
             <img src="/images/pokedexTitle.svg" alt="" />
           </div>
@@ -40,7 +40,7 @@ const Home = () => {
           </form>
         </div>
       </section>
-      <footer className="bg-[url('/footer.svg')] bg-cover bg-center h-[80px] overflow-hidden">
+      <footer className="bg-[url('/footer.svg')] bg-cover bg-center h-[143px]">
     
       </footer>
     </main>

@@ -20,6 +20,7 @@ const Pokedex = () => {
   const handleSubmitForm = (event) => {
     event.preventDefault();
     const stringToSearch = event.target.pokemonName.value.toLowerCase().trim();
+    //console.log(stringToSearch)
     setPokemonName(stringToSearch);
   };
 
@@ -58,18 +59,20 @@ const Pokedex = () => {
   }, [currentType]);
 
   return (
-    <main>
+    <main className="p-1">
+      <header className="bg-[url('/header.svg')] bg-cover bg-center h-[140px] overflow-hidden">
+        <img className="w-[400px] p-2" src="./public/images/pokedexTitle.svg" alt="" />
+      </header>
       <section>
         <p>
           <span>Welcome {trainerName}, </span>
           here you can find your favorite Pokemon
         </p>
-        <form onSubmit={handleSubmitForm}>
+        <form onSubmit={handleSubmitForm} className="flex justify-center p-2 mt-2 mb-2">
           <div>
-            <input name="pokemonName" type="text" />
-            <button>Search</button>
+            <input className="shadow hover:shadow-lg px-2" name="pokemonName" type="text" />
+            <button className="bg-red-600 flex px-6 py-2 items-center text-white">Search</button>
           </div>
-
           <select onChange={handleChangeType} className="capitalize">
             <option value="">All Pokemons</option>
             {types.map((type) => (
