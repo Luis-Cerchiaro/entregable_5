@@ -20,6 +20,20 @@ const PokemonDetail = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const pokemonTypes = pokemonInfo?.types.map((type) => (
+    <div>{type.type.name}</div>
+  ));
+
+  const pokemonAbilities = pokemonInfo?.abilities.map((ability) => (
+    <div>{ability.ability.name}</div>
+  ));
+
+  const pokemonMoves = pokemonInfo?.moves.map((move) => (
+    <div className=" bg-gray-500 text-white p-2 m-2 rounded-lg max-w-fit ">
+      {move.move.name}
+    </div>
+  ));
+
   return (
     <main className="py-10 px-2 text-center capitalize max-w-[500px] mx-auto">
       <article className="">
@@ -32,6 +46,16 @@ const PokemonDetail = () => {
       </article>
       <h3>#{pokemonInfo?.id}</h3>
       <h2>{pokemonInfo?.name}</h2>
+      <h3>Weight</h3>
+      <span>{pokemonInfo?.weight}</span>
+      <h3>Height</h3>
+      <span>{pokemonInfo?.height}</span>
+      <section>
+        <h3>Type</h3>
+        <div>{pokemonTypes}</div>
+        <h3>Abilities</h3>
+        <div> {pokemonAbilities} </div>
+      </section>
       <section>
         <h3 className="text-start">stats</h3>
         <ul className="grid gap-4">
@@ -50,6 +74,10 @@ const PokemonDetail = () => {
             </li>
           ))}
         </ul>
+      </section>
+      <section>
+        <h3  className="text-start" >Moves</h3>
+        <div className=" grid-cols-4">{pokemonMoves}</div>
       </section>
     </main>
   );
