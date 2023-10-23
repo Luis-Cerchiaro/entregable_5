@@ -60,9 +60,9 @@ const PokemonDetail = () => {
         <span>{pokemonInfo?.height}</span>
         <section>
           <h3>Type</h3>
-          <div>{pokemonTypes}</div>
+          <div key={pokemonTypes}>{pokemonTypes}</div>
           <h3>Abilities</h3>
-          <div> {pokemonAbilities} </div>
+          <div > {pokemonAbilities} </div>
         </section>
         <section>
           <h3 className="text-start">stats</h3>
