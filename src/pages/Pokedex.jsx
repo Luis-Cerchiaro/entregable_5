@@ -61,7 +61,7 @@ const Pokedex = () => {
   return (
     <main className="p-1">
       <header className="bg-[url('/header.svg')] bg-cover bg-center h-[140px] overflow-hidden">
-        <img className="w-[400px] p-2" src="/images/pokedexTitle.svg" alt="" />
+        <img className="w-[400px] p-2" src="./pokedexTitle.svg" alt="" />
       </header>
       <section>
         <p>

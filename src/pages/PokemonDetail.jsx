@@ -39,7 +39,7 @@ const PokemonDetail = () => {
       <div className="bg-[url('/header.svg')] bg-cover bg-center h-[140px] overflow-hidden">
         <img
           className="w-[400px] p-2"
-          src="./public/images/pokedexTitle.svg"
+          src="./pokedexTitle.svg"
           alt=""
         />
       </div>
