@@ -27,7 +27,7 @@ const PokemonDetail = () => {
   }, []);
 
   const pokemonTypes = pokemonInfo?.types.map((type) => (
-    <div className={`${boxByType[pokemonInfo?.types[1].type.name]}`}>
+    <div className="bg-gray-100 text-gray-400 p-2 m-2 rounded-sm">
       {type.type.name}
     </div>
   ));
