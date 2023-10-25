@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PokemonList from "../components/pokedex/PokemonList";
+import { paginateData } from "../utils/pagination";
 
 const Pokedex = () => {
   //? Here are all pokemons
@@ -9,12 +10,18 @@ const Pokedex = () => {
   const [pokemonName, setPokemonName] = useState("");
   const [types, setTypes] = useState([]);
   const [currentType, setCurrentType] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const trainerName = useSelector((store) => store.trainerName);
 
   const pokemonsByName = pokemons.filter((pokemon) =>
     //? When pokemonName is an empty string, the logic test is true and therefore doesnt modify the array with names
     pokemon.name.includes(pokemonName)
+  );
+
+  const { itemsInCurrentPage, lastPage, pagesInCurrentBlock } = paginateData(
+    pokemonsByName,
+    currentPage
   );
 
   const handleSubmitForm = (event) => {
@@ -28,11 +35,25 @@ const Pokedex = () => {
     setCurrentType(event.target.value);
   };
 
+  const handlePreviousPage = () => {
+    const newCurrentPage = currentPage - 1;
+    if (newCurrentPage >= 1) {
+      setCurrentPage(newCurrentPage);
+    }
+  };
+
+  const handleNextPage = () => {
+    const newCurrentPage = currentPage + 1;
+    if (newCurrentPage <= lastPage) {
+      setCurrentPage(newCurrentPage);
+    }
+  };
+
   //? Brings all the individual pokemons
   useEffect(() => {
     if (currentType == "")
       axios
-        .get("https://pokeapi.co/api/v2/pokemon?limit=120")
+        .get("https://pokeapi.co/api/v2/pokemon?limit=1292")
         .then(({ data }) => setPokemons(data.results))
         .catch((err) => console.log(err));
   }, [currentType]);
@@ -58,6 +79,11 @@ const Pokedex = () => {
     }
   }, [currentType]);
 
+  //? Listening if there is a change in the pokemon type category to set the currentPage to 1
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [currentType]);
+
   return (
     <main className="">
       <header className="bg-[url('/header.svg')] bg-cover bg-center h-[200px]">
@@ -65,7 +91,9 @@ const Pokedex = () => {
       </header>
       <section>
         <p className="text-lg">
-          <span  className="text-red-600 font-semibold">Welcome {trainerName}, </span>
+          <span className="text-red-600 font-semibold">
+            Welcome {trainerName},{" "}
+          </span>
           here you can find your favorite Pokemon
         </p>
         <form
@@ -79,7 +107,7 @@ const Pokedex = () => {
               placeholder="write the pokemon name"
               type="text"
             />
-            <button className="bg-red-600 flex px-6 py-2 items-center text-white">
+            <button className="bg-red-600 flex px-6 py-2 items-center text-white font-semibold">
               Search
             </button>
           </div>
@@ -93,7 +121,46 @@ const Pokedex = () => {
           </select>
         </form>
       </section>
-      <PokemonList pokemons={pokemonsByName} />
+
+      {/* List of pokemons being rendered*/}
+      <PokemonList pokemons={itemsInCurrentPage} />
+
+      {/* Block to create the pagination*/}
+      <ul className="flex justify-center gap-4 font-semibold flex-wrap">
+        {currentPage !== 1 && (
+          <li>
+            <button
+              className={"text-white px-4 py-2 rounded-sm bg-red-600"}
+              onClick={handlePreviousPage}
+            >
+              {"<"}
+            </button>
+          </li>
+        )}
+
+        {pagesInCurrentBlock.map((page) => (
+          <li key={page}>
+            <button
+              onClick={() => setCurrentPage(page)}
+              className={`text-white px-4 py-2 rounded-sm ${
+                currentPage === page ? "bg-red-600" : "text-black"
+              } `}
+            >
+              {page}
+            </button>{" "}
+          </li>
+        ))}
+        {currentPage !== lastPage && (
+          <li>
+            <button
+              onClick={handleNextPage}
+              className={"text-white px-4 py-2 rounded-sm bg-red-600"}
+            >
+              {">"}
+            </button>
+          </li>
+        )}
+      </ul>
     </main>
   );
 };

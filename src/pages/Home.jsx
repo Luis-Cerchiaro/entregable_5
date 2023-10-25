@@ -26,10 +26,10 @@ const Home = () => {
   };
 
   return (
-    <main className="p-1">
-      <section className="">
-        <div className="mb-28">
-          <div className="relative flex justify-center mt-10 mb-16 ">
+    <main className="">
+      <section className="h-screen grid grid-rows-[1fr_auto]">
+        <div className="">
+          <div className="relative flex justify-center mt-10 mb-36">
             <img src="/images/pokedexTitle.svg" alt="" />
           </div>
           <h3 className="text-red-600 text-center text-3xl not-italic font-bold">
@@ -40,7 +40,7 @@ const Home = () => {
           </p>
           <form
             onSubmit={handleSubmit}
-            className="flex justify-center p-2 mt-2 mb-2"
+            className="flex justify-center p-2 mt-4 mb-4"
           >
             <input
               className="shadow hover:shadow-lg px-2"
@@ -53,8 +53,9 @@ const Home = () => {
             </button>
           </form>
         </div>
+        <footer className="bg-[url('/footer.svg')] bg-cover bg-center h-[200px]"></footer>
       </section>
-      <footer className="bg-[url('/footer.svg')] bg-cover bg-center h-[143px]"></footer>
+
     </main>
   );
 };

@@ -26,16 +26,14 @@ const PokemonDetail = () => {
       .catch((err) => console.log(err));
   }, []);
 
-//`${boxByType[pokemonInfo?.types[1].type.name]}`
-
   const pokemonTypes = pokemonInfo?.types.map((type) => (
-    <div>
+    <div className={`${boxByType[pokemonInfo?.types[1].type.name]}`}>
       {type.type.name}
     </div>
   ));
 
   const pokemonAbilities = pokemonInfo?.abilities.map((ability) => (
-    <div>{ability.ability.name}</div>
+    <div className="bg-gray-100 text-gray-400 p-2 m-2 rounded-sm">{ability.ability.name}</div>
   ));
 
   return (
