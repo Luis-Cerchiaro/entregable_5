@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -37,6 +37,7 @@ const PokemonDetail = () => {
   ));
 
   return (
+    <Link to={-1}> 
     <div>
       <div className="bg-[url('/header.svg')] bg-cover bg-center h-[200px]">
         <img className="w-[400px] p-2" src="./pokedexTitle.svg" alt="" />
@@ -115,6 +116,7 @@ const PokemonDetail = () => {
         {/*place for pokemon movements */}
       </main>
     </div>
+    </Link>
   );
 };
 export default PokemonDetail;

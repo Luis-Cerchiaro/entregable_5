@@ -142,8 +142,8 @@ const Pokedex = () => {
           <li key={page}>
             <button
               onClick={() => setCurrentPage(page)}
-              className={`text-white px-4 py-2 rounded-sm ${
-                currentPage === page ? "bg-red-600" : "text-black"
+              className={`px-4 py-2 rounded-sm ${
+                currentPage === page ? "bg-red-600 text-white" : "text-gray-500"
               } `}
             >
               {page}
