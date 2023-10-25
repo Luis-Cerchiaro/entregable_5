@@ -1,6 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  bgByType,
+  borderByType,
+  colorByType,
+  boxByType,
+} from "../constants/pokemonColor";
 
 const PokemonDetail = () => {
   const [pokemonInfo, setPokemonInfo] = useState(null);
@@ -20,51 +26,76 @@ const PokemonDetail = () => {
       .catch((err) => console.log(err));
   }, []);
 
+//`${boxByType[pokemonInfo?.types[1].type.name]}`
+
   const pokemonTypes = pokemonInfo?.types.map((type) => (
-    <div>{type.type.name}</div>
+    <div>
+      {type.type.name}
+    </div>
   ));
 
   const pokemonAbilities = pokemonInfo?.abilities.map((ability) => (
     <div>{ability.ability.name}</div>
   ));
 
-  const pokemonMoves = pokemonInfo?.moves.map((move) => (
-    <div className=" bg-gray-500 text-white p-2 m-2 rounded-lg max-w-fit ">
-      {move.move.name}
-    </div>
-  ));
-
   return (
-    <div className="p-1">
-      <div className="bg-[url('/header.svg')] bg-cover bg-center h-[140px] overflow-hidden">
-        <img
-          className="w-[400px] p-2"
-          src="./pokedexTitle.svg"
-          alt=""
-        />
+    <div>
+      <div className="bg-[url('/header.svg')] bg-cover bg-center h-[200px]">
+        <img className="w-[400px] p-2" src="./pokedexTitle.svg" alt="" />
       </div>
-      <main className="py-10 px-2 text-center capitalize max-w-[500px] mx-auto">
-        <article className="">
-          <header>
+      <main
+        className={`pt-32 pb-10 text-center capitalize max-w-[500px] mx-auto border-4 rounded-lg ${
+          borderByType[pokemonInfo?.types[0].type.name]
+        }`}
+      >
+        <article className="relative">
+          <header className="absolute top-0 w-full -translate-y-[45%]">
             <img
               src={pokemonInfo?.sprites.other["official-artwork"].front_default}
               alt=""
+              className="max-w-[300px] mx-auto block"
             />
           </header>
+          <div
+            className={`${bgByType[pokemonInfo?.types[0].type.name]} h-[130px]`}
+          ></div>
         </article>
-        <h3>#{pokemonInfo?.id}</h3>
-        <h2>{pokemonInfo?.name}</h2>
-        <h3>Weight</h3>
-        <span>{pokemonInfo?.weight}</span>
-        <h3>Height</h3>
-        <span>{pokemonInfo?.height}</span>
-        <section>
-          <h3>Type</h3>
-          <div key={pokemonTypes}>{pokemonTypes}</div>
-          <h3>Abilities</h3>
-          <div > {pokemonAbilities} </div>
-        </section>
-        <section>
+        <h3
+          className={`${
+            colorByType[pokemonInfo?.types[0].type.name]
+          } text-center text-[43px] font-medium`}
+        >
+          #{pokemonInfo?.id}
+        </h3>
+        <h2
+          className={`${
+            colorByType[pokemonInfo?.types[0].type.name]
+          } text-center text-[43px] font-medium`}
+        >
+          {pokemonInfo?.name}
+        </h2>
+
+        <div className="grid grid-cols-2 text-[#0F0F2D] text-[25px] font-medium text-center">
+          <div>
+            <h3>Weight</h3>
+            <span>{pokemonInfo?.weight}</span>
+          </div>
+          <div>
+            <h3>Height</h3>
+            <span>{pokemonInfo?.height}</span>
+          </div>
+        </div>
+        <div className="grid grid-cols-2">
+          <div>
+            <h3>Type</h3>
+            <div className="grid grid-cols-2">{pokemonTypes}</div>
+          </div>
+          <div>
+            <h3>Abilities</h3>
+            <div className="grid grid-cols-2">{pokemonAbilities} </div>
+          </div>
+        </div>
+        <section className="px-2">
           <h3 className="text-start">stats</h3>
           <ul className="grid gap-4">
             {pokemonInfo?.stats.map((stat) => (
@@ -76,17 +107,14 @@ const PokemonDetail = () => {
                 <div className="bg-slate-200 rounded-md h-6 overflow-hidden">
                   <div
                     style={{ width: getPercent(stat.base_stat) }}
-                    className="bg-yellow-400 rounded-md h-full"
+                    className="bg-yellow-500 rounded-md h-full"
                   ></div>
                 </div>
               </li>
             ))}
           </ul>
         </section>
-        <section>
-          <h3 className="text-start">Moves</h3>
-          <div className=" grid-cols-4">{pokemonMoves}</div>
-        </section>
+        {/*place for pokemon movements */}
       </main>
     </div>
   );

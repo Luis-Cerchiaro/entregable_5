@@ -31,10 +31,10 @@ const Pokedex = () => {
   //? Brings all the individual pokemons
   useEffect(() => {
     if (currentType == "")
-    axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=20")
-      .then(({ data }) => setPokemons(data.results))
-      .catch((err) => console.log(err));
+      axios
+        .get("https://pokeapi.co/api/v2/pokemon?limit=120")
+        .then(({ data }) => setPokemons(data.results))
+        .catch((err) => console.log(err));
   }, [currentType]);
 
   //? Brings all the available types of pokemon
@@ -59,19 +59,29 @@ const Pokedex = () => {
   }, [currentType]);
 
   return (
-    <main className="p-1">
-      <header className="bg-[url('/header.svg')] bg-cover bg-center h-[140px] overflow-hidden">
+    <main className="">
+      <header className="bg-[url('/header.svg')] bg-cover bg-center h-[200px]">
         <img className="w-[400px] p-2" src="./pokedexTitle.svg" alt="" />
       </header>
       <section>
-        <p>
-          <span>Welcome {trainerName}, </span>
+        <p className="text-lg">
+          <span  className="text-red-600 font-semibold">Welcome {trainerName}, </span>
           here you can find your favorite Pokemon
         </p>
-        <form onSubmit={handleSubmitForm} className="flex justify-center p-2 mt-2 mb-2">
-          <div>
-            <input className="shadow hover:shadow-lg px-2" name="pokemonName" type="text" />
-            <button className="bg-red-600 flex px-6 py-2 items-center text-white">Search</button>
+        <form
+          onSubmit={handleSubmitForm}
+          className="flex justify-center p-2 mt-2 mb-2"
+        >
+          <div className="flex justify-center p-2 mt-2 mb-2">
+            <input
+              className="shadow hover:shadow-lg px-2"
+              name="pokemonName"
+              placeholder="write the pokemon name"
+              type="text"
+            />
+            <button className="bg-red-600 flex px-6 py-2 items-center text-white">
+              Search
+            </button>
           </div>
           <select onChange={handleChangeType} className="capitalize">
             <option value="">All Pokemons</option>
